@@ -1,0 +1,33 @@
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #f8f9fa;
+  padding: 20px 0;
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+  display: flex; /* Add this */
+  justify-content: center; /* Add this */
+  align-items: center; /* Add this */
+}
+
+  
+  .inner-bar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+  }
+  
+  .icons {
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+  }
+  
+  .icon {
+    color: #6c757d;
+  }
+  
+  .icon.active {
+    color: #007bff;
+  }

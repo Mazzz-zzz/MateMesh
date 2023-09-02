@@ -1,0 +1,92 @@
+#root {
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+}
+.div-2 {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  width: 100vw;
+}
+
+.logo-button {
+  background-color: #ffffff;
+  border: 1px solid;
+  border-color: #000000;
+  box-shadow: var(--standard-box-shadow);
+  height: var(--standard-height);
+  position: relative;
+  width: 100%; /* Change width to 100% for responsiveness */
+  max-width: var(--standard-width); /* Add max-width to limit width on larger screens */
+  border-radius: var(--standard-border-radius);
+  margin: auto;
+}
+
+.input {
+  display: inline-block;
+  padding: 0.5em 1em;
+  border: 1px solid #000000;
+  border-radius: var(--standard-border-radius);
+  width: 100%;
+  max-width: var(--standard-width);
+  box-sizing: border-box;
+}
+
+.container-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  box-shadow: var(--standard-box-shadow);
+  height: auto; /* Change height to auto to fit all elements */
+  width: 100%; /* Change width to 100% for responsiveness */
+  max-width: var(--standard-width); /* Add max-width to limit width on larger screens */
+  border-radius: var(--standard-border-radius);
+  margin: auto;
+  padding: 1em; /* Add padding to prevent elements from touching the edges */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.main {
+  width: 100vw; 
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+  display: flex;
+  height: 100vh;
+}
+/* section from manualinput */
+.profilePicInput {
+  display: none; /* Hide the default file input */
+  }
+  
+  .profilePicLabel {
+  display: inline-block;
+  padding: 0px 0px;
+  color: white;
+  cursor: pointer;
+  }
+  
+  .UploadButton {
+  background-color: rgb(52, 132, 106);
+  color: white;
+  width: 150px;
+  height: 150px;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  }
+  
+  .UploadButton:hover {
+  background-color: white;
+  color: black;
+  }

@@ -1,0 +1,54 @@
+
+.home {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100vw;
+
+  }
+  
+  .home .header {
+    text-align: center;
+  }
+  
+  .home .text-wrapper-2 {
+    color: #000000;
+    font-family: "Poiret One-Regular", Helvetica;
+    font-size: 64px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+    margin-top: 50px;
+  }
+  
+  .home .search-for-service-instance {
+    margin-top: 20px;
+  }
+  
+  .home .user-box-2 {
+    align-items: flex-start;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px 50px;
+    height: 540px;
+    justify-content: center;
+    overflow: hidden;
+    padding: 39px 0px;
+    width: 448px;
+    margin-top: 20px;
+    flex-grow: 1;
+  }
+  
+  .home .bottom-bar-instance {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+  }
+  
+  .home .profile {
+    margin-bottom: -12px !important;
+  }
