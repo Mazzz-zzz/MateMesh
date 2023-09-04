@@ -16,10 +16,14 @@
   -webkit-text-size-adjust: 100%;
 
   --standard-box-shadow: 0px 0px 24px #00000026;
-  --standard-height: 82px;
+  --standard-height: 70px;
   --standard-width: 400px;
   --standard-border-radius: 25px;
   --standard-border: 1px solid #ccc;
+
+  /*Set Chrome Extension width and height */
+  width: 450px;
+  height: 600px;
   
 }
 
@@ -43,8 +47,8 @@ body {
 
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 1.7em;
+  
 }
 
 button {

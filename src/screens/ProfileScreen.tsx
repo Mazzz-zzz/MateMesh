@@ -65,13 +65,14 @@ const ProfileScreen = (): JSX.Element => {
   return (
     <div className='mainProfile main'>
       <div className='container-main ProfileContainer'>
-        <h1 className='profile-username'>Username: {profile.username}</h1>
+        <h1>About me</h1>
+        <p className='profile-username'>Username: {profile.username}</p>
         <p className='profile-interests'>Interests: {profile.interests}</p>
         {/* Display other profile data here */}
       </div>
       <div className='container-main FriendsContainer'>
-        <p>Add friends</p>
-        <div className='inputContainer'>
+        <h1>Add friends</h1>
+        <div className='inputContainer addfriends'>
           <label htmlFor='name'>Name:</label>
           <input className='input' type='text' id='name' name='name' onChange={(e) => setFriendDetails(prevState => ({
               ...prevState,
@@ -80,7 +81,7 @@ const ProfileScreen = (): JSX.Element => {
               profilePic: prevState?.profilePic || null
             }))} />
         </div>
-        <div className='inputContainer'>
+        <div className='inputContainer addfriends'>
           <label htmlFor='interests'>Skills:</label>
           <select className='input' id='interests' name='interests' onChange={(e) => setFriendDetails(prevState => ({
               ...prevState,

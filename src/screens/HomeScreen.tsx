@@ -41,7 +41,11 @@ const HomeScreen = (): JSX.Element => {
     onValue(friendRef, (snapshot) => {
       const data = snapshot.val();
       console.log(data)
-      setUsers(Object.entries(data).map(([key, friend]) => extractUserData(key, friend)));
+      if (data) {
+        setUsers(Object.entries(data).map(([key, friend]) => extractUserData(key, friend)));
+      } else {
+        console.log('No data found at the specified reference');
+      }
     });
   }, [auth]);
 
@@ -57,7 +61,7 @@ const HomeScreen = (): JSX.Element => {
   };
 
   return (
-    <div className="home">
+    <div className="main home">
       <div className="header">
         <div className="text-wrapper-2">MateMesh</div>
         <SearchForService onSearch={handleSearch} />

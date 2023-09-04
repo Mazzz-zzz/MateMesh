@@ -24,6 +24,7 @@
   margin: auto;
 }
 
+
 .input {
   display: inline-block;
   padding: 0.5em 1em;
@@ -57,6 +58,8 @@
   justify-self: center;
   display: flex;
   height: 100vh;
+  flex-direction: column;
+  overflow: scroll;
 }
 /* section from manualinput */
 .profilePicInput {
@@ -73,8 +76,8 @@
   .UploadButton {
   background-color: rgb(52, 132, 106);
   color: white;
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
   border-radius: 100px;
   border: none;
   cursor: pointer;

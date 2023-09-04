@@ -1,9 +1,9 @@
-import { useState, useEffect, createContext } from 'react';
+import { useState, useEffect, createContext, useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { FacebookLogo, InstagramLogo, CurrencyEth, Check, Keyboard } from "@phosphor-icons/react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import {isSupported, getAnalytics } from "firebase/analytics";
 import HomeScreen from './screens/HomeScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import ManualSetupScreen from './screens/ManualSetup';
@@ -23,14 +23,19 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+let analytics;
+isSupported().then((supportStatus) => {
+  if (supportStatus) {
+    analytics = getAnalytics(app);
+  }
+});
 // ---------------
 
 function Div2() {
   const Button = ({ logo, label, path }: { logo: JSX.Element, label: string, path: string }) => {
     const navigate = useNavigate();
 
-    useEffect(() => {
+    /*useEffect(() => {
       const auth = getAuth();
       const unsubscribe = onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -41,7 +46,7 @@ function Div2() {
   
       // Cleanup subscription on unmount
       return () => unsubscribe();
-    }, [navigate]);
+    }, [navigate]);*/
 
     const handleClick = () => {
       navigate(path);
@@ -67,10 +72,10 @@ function Div2() {
   ];
 
   return (
-    <div className="div-2">
+    <div className="main">
       
       <h1 className="text-wrapper">Welcome</h1>
-      <p className="p">Please import your social graph from your favourite social apps</p>
+      <p style={{padding: 10}}>Please import your social graph from your favourite social apps</p>
       
       <div className="container-main">
         {buttons.map((button, index) => (
@@ -82,48 +87,77 @@ function Div2() {
   )
 }
 
-interface AuthContextType {
+export interface AuthContextType {
   currentUser: User | null;
+  refetchUser: () => void;
+  
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
-const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [currentUser, setCurrentUser] = useState<User | null>(JSON.parse(localStorage.getItem('currentUser') || 'null'));
   const auth = getAuth();
+
+  const refetchUser = () => {
+    
+    const user = JSON.parse(localStorage.getItem('currentUser') || 'null');
+    setCurrentUser(user);
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
+      if (user) {
+        // Store user data in localStorage
+        localStorage.setItem('currentUser', JSON.stringify(user));
+
+      } else {
+        // Clear the stored data if user is null
+        localStorage.removeItem('currentUser');
+      }
     });
 
     // Cleanup subscription on unmount
     return () => unsubscribe();
   }, [auth]);
 
+  // Get the user data from localStorage
+  //const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+
   return (
-    <AuthContext.Provider value={{ currentUser }}>
+    <AuthContext.Provider value={{ currentUser, refetchUser }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
 function App() {
+  const authContext = useContext(AuthContext);
+  const currentUser = authContext ? authContext.currentUser : null;
+  console.log('Current user', currentUser);
+
   return (
-    <AuthProvider>
     <Router>
-      <Routes>
-           <Route path="/home" element={<HomeScreen />} />
-           <Route path='/profile' element={<ProfileScreen />} />
-           <Route path="/" element={<Div2 />} />
-           <Route path='/manualsetup' element={<ManualSetupScreen />} />
-           <Route path="/settings" element={<SettingsScreen />} />
-           
-           {/* Other routes */}
-      </Routes>
-      <LocationAwareBottomBar />
+    
+          {!currentUser ? (
+            <Routes>
+              <Route path="*" element={<Div2 />} />
+              <Route path='/manualsetup' element={<ManualSetupScreen />} />
+            </Routes>
+          ) : (
+            <>
+            <Routes>
+              <Route path="/home"  element={<HomeScreen />} />
+              <Route path='/profile' element={<ProfileScreen />} />
+              <Route path='/manualsetup' element={<ManualSetupScreen />} />
+              <Route path="/settings" element={<SettingsScreen />} />
+              <Route path="*" element={<HomeScreen />} />
+            </Routes>
+            <LocationAwareBottomBar />
+            </>
+          )}
+      
     </Router>
-    </AuthProvider>
   )
 }
 

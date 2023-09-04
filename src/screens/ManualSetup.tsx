@@ -3,6 +3,11 @@ import "./ManualSetup.css"
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, ref, set, child } from 'firebase/database';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../App'; // Replace with your actual import
+import { AuthContextType } from '../App';
+
+
 
 // Inside your component
 
@@ -11,6 +16,11 @@ const SignUpScreen = (): JSX.Element => {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [interests, setInterests] = useState('');
+  
+  //
+  const { refetchUser } = useContext(AuthContext) as AuthContextType; // Replace with your actual context and function
+  
+
   
   const navigate = useNavigate();
   //
@@ -27,7 +37,10 @@ const SignUpScreen = (): JSX.Element => {
       await Promise.all([
         set(child(profileRef, 'username'), name),
         set(child(profileRef, 'interests'), interests)
-      ]);
+      ]).then(() => {
+        refetchUser(); // Call the function to refetch user
+      });
+      
       
       navigate('/home'); // Assuming '/' is the path to your HomeScreen
     } catch (error) {

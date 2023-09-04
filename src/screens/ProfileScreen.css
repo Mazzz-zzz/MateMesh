@@ -1,10 +1,15 @@
-.mainProfile {
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
+.main.mainProfile {
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 20px;
+  height: 90vh;
+  overflow: scroll;
 }
-.ProfileContainer {
-    width: 100%;
+.container-main.ProfileContainer {
+    height: fit-content;
+    gap: 0px;
+    padding: 10px;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,3 +17,18 @@
     font-size: smaller;
 }
 
+.container-main.FriendsContainer{
+  height: fit-content;
+  gap: 0px;
+  padding: 10px;
+  margin: 20px;
+  margin-bottom: 40px;
+}
+.inputContainer.addfriends {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+}
+p {
+  margin-block: 0;
+}
