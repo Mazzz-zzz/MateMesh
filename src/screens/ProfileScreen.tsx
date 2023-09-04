@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { getDatabase, ref as dbRef , onValue, set } from "firebase/database";
 import { getStorage, uploadBytes, ref as storageRef, getDownloadURL } from "firebase/storage"
-import { getAuth } from "firebase/auth";
+import { AuthContext } from '../App'; 
 import './ProfileScreen.css';
+
 
 const ProfileScreen = (): JSX.Element => {
   const [profile, setProfile] = useState<{username: string, interests: string} | null>(null);
   const [friendDetails, setFriendDetails] = useState<{name: string, skills: string, profilePic: File | null} | null>(null);
   
-  const auth = getAuth();
+  const authContext = useContext(AuthContext);
+  const auth = authContext ? authContext.currentUser : null;
   const [error, setError] = useState<string | null>(null);
   const storage = getStorage();
 
@@ -17,7 +19,7 @@ const ProfileScreen = (): JSX.Element => {
     const friendName = friendDetails?.name;
     const friendSkills = friendDetails?.skills;
     const friendProfilePic = friendDetails?.profilePic;
-    const friendRef = dbRef(db, 'users/' + auth.currentUser?.uid + '/friends/' + Math.random().toString(36).substring(7));
+    const friendRef = dbRef(db, 'users/' + auth?.uid + '/friends/' + Math.random().toString(36).substring(7));
 
     if (friendProfilePic) {
       const friendstorageRef = storageRef(storage, 'profilePics/' + friendProfilePic.name);
@@ -48,13 +50,13 @@ const ProfileScreen = (): JSX.Element => {
 
   useEffect(() => {
     const db = getDatabase();
-    const profileRef = dbRef(db, 'users/' + auth.currentUser?.uid); // Replace 'username' with the current user's uid
+    const profileRef = dbRef(db, 'users/' + auth?.uid); // Replace 'username' with the current user's uid
 
     onValue(profileRef, (snapshot) => {
       const data = snapshot.val();
       setProfile(data);
     });
-  }, []);
+  }, [auth]);
 
   if (!profile) {
     return <div className='main'>Loading...</div>;

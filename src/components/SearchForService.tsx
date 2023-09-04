@@ -8,10 +8,11 @@ const openai = new OpenAI({
 });
 
 interface Props {
-  className: any;
+  // other props...
+  onSearch: (term: string) => void;
 }
 
-export const SearchForService = ({ className }: Props): JSX.Element => {
+export const SearchForService = ({ onSearch }: Props): JSX.Element => {
   const [inputValue, setInputValue] = useState("");
   const [secondInputValue, setSecondInputValue] = useState(""); // New state for the second input
   const [showPopup, setShowPopup] = useState(false); // New state for showing the popup
@@ -28,7 +29,7 @@ export const SearchForService = ({ className }: Props): JSX.Element => {
           ],
           model: 'gpt-3.5-turbo',
         });
-        setCompletionMessage(completion.choices[0].message.content); // Store the completion message
+        setCompletionMessage(completion.choices[0].message.content || ""); // Store the completion message 
         setShowPopup(true); // Show the popup
         console.log(completion.choices[0].message.content)
       } catch (error) {
@@ -41,16 +42,20 @@ export const SearchForService = ({ className }: Props): JSX.Element => {
     e.preventDefault();
     fetchCompletion();
   };
+  const handleFiltering = (val: string) => {
+    onSearch(val);
+    setInputValue(val)
+  };
 
   return (
-    <div className={`search-for-service ${className}`}>
+    <div className={"search-for-service"}>
       <div className="input-container">
         <input 
           type="text" 
           className="text-wrapper" 
           placeholder="I want ..."
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={(e) => handleFiltering(e.target.value)}
         />
         <img
           className="vector"

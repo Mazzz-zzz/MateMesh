@@ -3,9 +3,9 @@
   flex-direction: column;
   align-items: flex-start;
   background-color: #ffffff;
-  border: 1px solid #000000;
-  border-radius: 39px;
-  box-shadow: var(--default-drop-shadow);
+  border: var(--standard-border);
+  border-radius: var(--standard-border-radius);
+  box-shadow: var(--standard-box-shadow);
   width: 359px;
   height: auto; /* This allows the container to expand */
   padding: 20px; /* Add some padding */

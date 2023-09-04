@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { FacebookLogo, InstagramLogo, CurrencyEth, Check, Keyboard } from "@phosphor-icons/react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -9,6 +9,7 @@ import ProfileScreen from './screens/ProfileScreen';
 import ManualSetupScreen from './screens/ManualSetup';
 import SettingsScreen from './screens/Settings';
 import { BottomBar } from './components/BottomBar';
+import { User } from "firebase/auth";
 import './App.css';
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -81,8 +82,35 @@ function Div2() {
   )
 }
 
+interface AuthContextType {
+  currentUser: User | null;
+}
+
+export const AuthContext = createContext<AuthContextType | null>(null);
+
+const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const auth = getAuth();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, [auth]);
+
+  return (
+    <AuthContext.Provider value={{ currentUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
 function App() {
   return (
+    <AuthProvider>
     <Router>
       <Routes>
            <Route path="/home" element={<HomeScreen />} />
@@ -95,6 +123,7 @@ function App() {
       </Routes>
       <LocationAwareBottomBar />
     </Router>
+    </AuthProvider>
   )
 }
 
