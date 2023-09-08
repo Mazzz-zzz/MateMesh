@@ -3,6 +3,8 @@ import { getDatabase, ref as dbRef , onValue, set } from "firebase/database";
 import { getStorage, uploadBytes, ref as storageRef, getDownloadURL } from "firebase/storage"
 import { AuthContext } from '../App'; 
 import './ProfileScreen.css';
+import { AddSources } from '../components/AddSources';
+
 
 
 const ProfileScreen = (): JSX.Element => {
@@ -133,7 +135,9 @@ const ProfileScreen = (): JSX.Element => {
         
         
       </div>
-      
+      <div>
+        <AddSources ></AddSources>
+      </div>
     </div>
   );
 };

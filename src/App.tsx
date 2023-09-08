@@ -11,6 +11,8 @@ import SettingsScreen from './screens/Settings';
 import { BottomBar } from './components/BottomBar';
 import { User } from "firebase/auth";
 import './App.css';
+import AddSources from './components/AddSources';
+
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -30,62 +32,6 @@ isSupported().then((supportStatus) => {
   }
 });
 // ---------------
-
-function Div2() {
-  const Button = ({ logo, label, path }: { logo: JSX.Element, label: string, path: string }) => {
-    const navigate = useNavigate();
-
-    /*useEffect(() => {
-      const auth = getAuth();
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
-        if (user) {
-          // User is signed in, navigate to home
-          navigate('/home');
-        }
-      });
-  
-      // Cleanup subscription on unmount
-      return () => unsubscribe();
-    }, [navigate]);*/
-
-    const handleClick = () => {
-      navigate(path);
-    };
-
-    return (
-      <button className="logo-button" onClick={handleClick}>
-        {logo}
-        <span>{label}</span>
-        <div className="check-circle">
-          <Check size={24} />
-        </div>
-      </button>
-    );
-  };
-
-
-  const buttons = [
-    { logo: <Keyboard size={32}/>, label: 'Manual mode', path: '/manualsetup' },
-    { logo: <FacebookLogo size={32}/>, label: 'Facebook', path: '/home' },
-    { logo: <InstagramLogo size={32}/>, label: 'Instagram', path: '/home' },
-    { logo: <CurrencyEth size={32} />, label: 'Ethereum', path: '/home' },
-  ];
-
-  return (
-    <div className="main">
-      
-      <h1 className="text-wrapper">Welcome</h1>
-      <p style={{padding: 10}}>Please import your social graph from your favourite social apps</p>
-      
-      <div className="container-main">
-        {buttons.map((button, index) => (
-          <Button key={index} logo={button.logo} label={button.label} path={button.path} />
-        ))}
-      </div>
-      
-    </div>
-  )
-}
 
 export interface AuthContextType {
   currentUser: User | null;
@@ -141,7 +87,7 @@ function App() {
     
           {!currentUser ? (
             <Routes>
-              <Route path="*" element={<Div2 />} />
+              <Route path="*" element={<NewUser />} />
               <Route path='/manualsetup' element={<ManualSetupScreen />} />
             </Routes>
           ) : (
@@ -158,6 +104,16 @@ function App() {
           )}
       
     </Router>
+  )
+}
+
+function NewUser() {
+  return(
+    <div className='main'>
+      <h1 className="text-wrapper">Welcome</h1>
+      <p style={{padding: 10}}>Please import your social graph from your favourite social apps</p>
+      <AddSources></AddSources>
+    </div>
   )
 }
 

@@ -3,13 +3,7 @@
   justify-content: center;
   justify-self: center;
 }
-.div-2 {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  flex-direction: column;
-  width: 100vw;
-}
+
 
 .logo-button {
   background-color: #ffffff;
@@ -74,7 +68,7 @@
   }
   
   .UploadButton {
-  background-color: rgb(52, 132, 106);
+  background-color: var(--standard-dark-color);
   color: white;
   width: 100px;
   height: 100px;
@@ -90,6 +84,6 @@
   }
   
   .UploadButton:hover {
-  background-color: white;
+  background-color: var(--standard-light-color);
   color: black;
   }

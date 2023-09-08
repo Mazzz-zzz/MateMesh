@@ -5,7 +5,7 @@
   height: 60px;
   background-color: #f8f9fa;
   padding: 0px 0;
-  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--standard-box-shadow);
   display: flex; /* Add this */
   justify-content: center; /* Add this */
   align-items: center; /* Add this */
@@ -26,9 +26,9 @@
   }
   
   .icon {
-    color: #6c757d;
+    color: var(--standard-dark-color)
   }
   
   .icon.active {
-    color: #007bff;
+    color: var(--standard-lighter-color);
   }

@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@crxjs/vite-plugin": "^2.0.0-beta.18",
     "@fontsource/roboto": "^5.0.8",
     "@mui/styled-engine-sc": "^5.14.6",
     "@phosphor-icons/react": "^2.0.10",
+    "@types/chrome": "^0.0.245",
     "@web3auth/modal": "^6.1.7",
     "@web3auth/web3auth": "^2.0.0",
     "esbuild": "^0.19.2",

@@ -1,0 +1,3 @@
+// activeScript.js
+console.log("gotten script runnong")
+window.postMessage({ message: 'instagramActive', active: true }, '*');

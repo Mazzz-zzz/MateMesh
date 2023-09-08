@@ -20,6 +20,14 @@
   --standard-width: 400px;
   --standard-border-radius: 25px;
   --standard-border: 1px solid #ccc;
+  
+  --standard-color: #4F772D;
+  --complementary-color: #FF00E5;
+  --standard-dark-color: #132A13;
+  --standard-light-color: #ECF39E;
+  --standard-darker-color: #31572C;
+  --standard-lighter-color: #90A955;
+  
 
   /*Set Chrome Extension width and height */
   width: 450px;
